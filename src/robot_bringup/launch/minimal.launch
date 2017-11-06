@@ -1,0 +1,56 @@
+﻿<launch>
+
+    <param name="robot_description" textfile="$(find export_urdf)/robots/xiaoqiang_udrf.URDF" />
+
+    <arg name="base"              default="kobuki" />
+    <arg name="battery"           default="/sys/bus/acpi/drivers/battery"       doc="kernel provided locatio for battery info, use /proc/acpi/battery/BAT0 in 2.6 or earlier kernels." />
+    <arg name="stacks"            default="hexagons"                            doc="stack type displayed in visualisation/simulation [circles, hexagons]"/>
+    <arg name="3d_sensor"         default="r200"                    doc="3d sensor types [kinect, asux_xtion_pro]"/>
+    <arg name="serialport"        default="/dev/ttyUSB0" />
+
+    <param name="/use_sim_time" value="false"/>
+
+    <!-- important generally, but specifically utilised by the current app manager -->
+    <param name="robot/name" value="$(optenv ROBOT turtlebot)"/>
+    <param name="robot/type" value="turtlebot"/>
+
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+
+    <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
+        <param name="publish_frequency" type="double" value="5.0" />
+    </node>
+    <node pkg="diagnostic_aggregator" type="aggregator_node" name="diagnostic_aggregator" >
+        <rosparam command="load" file="$(find robot_bringup)/param/diagnostics.yaml" />
+    </node>
+
+    <!-- mobile base nodelet manager -->
+    <node pkg="nodelet" type="nodelet" name="mobile_base_nodelet_manager" args="manager"/>
+
+    <!-- mobile base -->
+    <node pkg="nodelet" type="nodelet" name="mobile_base" args="load kobuki_node/KobukiNodelet mobile_base_nodelet_manager">
+      <rosparam file="$(find robot_bringup)/param/base.yaml" command="load"/>
+      <param name="device_port" value="$(arg serialport)" />
+      <remap from="mobile_base/odom" to="odom"/>
+      <remap from="mobile_base/enable" to="enable"/>
+      <remap from="mobile_base/disable" to="disable"/>
+      <remap from="mobile_base/joint_states" to="joint_states"/>
+    </node>
+
+    <!-- bumper/cliff to pointcloud -->
+    <!--<include file="$(find turtlebot_bringup)/launch/includes/kobuki/bumper2pc.launch.xml"/>-->
+
+    <!-- velocity commands multiplexer -->
+    <node pkg="nodelet" type="nodelet" name="cmd_vel_mux" args="load yocs_cmd_vel_mux/CmdVelMuxNodelet mobile_base_nodelet_manager">
+        <param name="yaml_cfg_file" value="$(find robot_bringup)/param/mux.yaml"/>
+        <remap from="cmd_vel_mux/output" to="mobile_base/commands/velocity"/>
+    </node>
+
+    <!--<node pkg="tf" type="static_transform_publisher" name="odom_map_broadcaster" args="0 0 0 0 0 0 /map /odom 100" />-->
+
+    <!--
+    <node pkg="laptop_battery_monitor" type="laptop_battery.py" name="turtlebot_laptop_battery">
+        <param name="acpi_path" type="string" value="$(arg battery)" />
+    </node>
+    -->
+
+</launch>

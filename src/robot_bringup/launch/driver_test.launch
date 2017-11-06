@@ -1,0 +1,30 @@
+﻿<launch>
+
+    <param name="robot_description" textfile="$(find export_urdf)/robots/xiaoqiang_udrf.URDF" />
+
+    <arg name="base"              default="kobuki" />
+    <arg name="battery"           default="/sys/bus/acpi/drivers/battery"       doc="kernel provided locatio for battery info, use /proc/acpi/battery/BAT0 in 2.6 or earlier kernels." />
+    <arg name="stacks"            default="hexagons"                            doc="stack type displayed in visualisation/simulation [circles, hexagons]"/>
+    <arg name="3d_sensor"         default="r200"                    doc="3d sensor types [kinect, asux_xtion_pro]"/>
+    <arg name="serialport"        default="/dev/ttyUSB0" />
+
+    <param name="/use_sim_time" value="false"/>
+
+    <!-- important generally, but specifically utilised by the current app manager -->
+    <param name="robot/name" value="$(optenv ROBOT turtlebot)"/>
+    <param name="robot/type" value="turtlebot"/>
+
+    <!-- mobile base nodelet manager -->
+    <node pkg="nodelet" type="nodelet" name="mobile_base_nodelet_manager" args="manager"/>
+
+    <!-- mobile base -->
+    <node pkg="nodelet" type="nodelet" name="mobile_base" args="load kobuki_node/KobukiNodelet mobile_base_nodelet_manager">
+      <rosparam file="$(find robot_bringup)/param/base.yaml" command="load"/>
+      <param name="device_port" value="$(arg serialport)" />
+      <remap from="mobile_base/odom" to="odom"/>
+      <remap from="mobile_base/enable" to="enable"/>
+      <remap from="mobile_base/disable" to="disable"/>
+      <remap from="mobile_base/joint_states" to="joint_states"/>
+    </node>
+
+</launch>

@@ -1,0 +1,25 @@
+﻿<package>
+  <name>robot_driver</name>
+  <version>0.1.0</version>
+  <description>The serial_test package</description>
+
+  <maintainer email="peak@todo.todo">peak</maintainer>
+
+  <license>Apache 2.0</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>ecl_build</build_depend>
+  <build_depend>ecl_devices</build_depend>
+  <build_depend>roscpp</build_depend>
+
+  <run_depend>roscpp</run_depend>
+  <run_depend>ecl_devices</run_depend>
+
+
+  <!-- The export tag contains other, unspecified, tags -->
+  <export>
+    <!-- Other tools can request additional information be placed here -->
+
+  </export>
+</package>
