@@ -1,6 +1,6 @@
 ﻿<launch>
 
-    <param name="robot_description" textfile="$(find export_urdf)/robots/xiaoqiang_udrf.URDF" />
+    <param name="robot_description" textfile="$(find export_urdf)/robots/robot.urdf" />
 
     <arg name="base"              default="kobuki" />
     <arg name="battery"           default="/sys/bus/acpi/drivers/battery"       doc="kernel provided locatio for battery info, use /proc/acpi/battery/BAT0 in 2.6 or earlier kernels." />

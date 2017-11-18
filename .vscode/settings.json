@@ -1,0 +1,11 @@
+{
+    "files.associations": {
+        "typeinfo": "cpp",
+        "cassert": "cpp",
+        "string": "cpp",
+        "functional": "cpp",
+        "*.ipp": "cpp"
+    },
+    "C_Cpp.intelliSenseEngineFallback": "Enabled",
+    "C_Cpp.errorSquiggles": "Disabled"
+}

@@ -1,0 +1,28 @@
+﻿<launch>
+
+    <!--<param name="base"/>-->
+    <param name="serialport" value="/dev/ttyUSB0" />
+
+    <param name="robot_description" textfile="$(find robot_description)/urdf/car.urdf" />
+
+    <rosparam command="load" file="$(find robot_bringup)/param/parameters.yaml" />
+
+    <rosparam command="load" file="$(find robot_bringup)/param/diff_controller.yaml" />
+
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
+
+    <!--<node name="odom_to_base" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0 /odom /base_link 100"/>-->
+
+    <!--<node name="rviz" pkg="rviz" type="rviz"/>-->
+
+    <!-- mobile base nodelet manager -->
+    <node name="robot_nodelet_manager" pkg="nodelet" type="nodelet" args="manager" output="screen">
+        <remap from="/diff_controller/cmd_vel" to="/cmd_vel_mux/input/teleop"/>
+    </node>
+
+    <node name="robot" pkg="nodelet" type="nodelet" args="load robot/RobotNodelet robot_nodelet_manager" output="screen" />
+
+    <node name="controller_manager_spawner" pkg="controller_manager" type="spawner"
+            output="screen" args="diff_controller" />
+
+</launch>

@@ -2,7 +2,6 @@
 #define SERVO_DRIVER_H
 
 #include <string>
-#include <ros/ros.h>
 #include <ecl/threads.hpp>
 #include <ecl/time.hpp>
 #include <ecl/devices.hpp>
@@ -11,32 +10,30 @@
 #include <ecl/exceptions/standard_exception.hpp>
 #include <boost/shared_ptr.hpp>
 
+#include <ros/ros.h>
+
+#include "robot_driver/robot_data.h"
+
+namespace robot {
 
 class ServoDriver {
-
-    struct wheel_data {
-        int status;         //故障状态
-        int voltage;        //母线电压
-        int electricity;    //输出电流(实际电流要除以100)
-        int speed;          //转速
-        int pos;            //位置
-        int pos_feedback;   //位置反馈
-    };
-
-    enum WheelStatus{
-
-    };
 
 public:
 
     ServoDriver();
     ~ServoDriver();
 
-    void start_vectory();
-    void start_position();
+    void init();
 
-    void read_status();
+    void start();
+
+    void set_velocity_mode();
+    void set_speed(double speed);
+
+    void status_thread();
     void parse_status(unsigned char* buf, int size);
+
+    void stop();
 
 private:
     bool open_serial();
@@ -45,11 +42,13 @@ private:
     ecl::Thread thread_;
     ecl::Mutex data_mutex_;
 
-    ecl::PushAndPop<unsigned char> data_;
+    double sec_timeout;
 
-    struct wheel_data wheel_status_;
+    ChassisWheelState wheel_status_;
     bool is_alive;
 
 };
 
+
+}
 #endif // SERVO_DRIVER_H

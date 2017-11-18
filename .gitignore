@@ -2,4 +2,6 @@ build/*
 devel/*
 logs/*
 .catkin_tools/*
+ros_samples.workspace
 ros_samples.workspace.user
+.catkin_workspace

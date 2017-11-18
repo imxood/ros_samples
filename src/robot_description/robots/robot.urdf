@@ -1,5 +1,4 @@
-<robot
-  name="robot_description">
+﻿<robot name="robot_description">
   <link
     name="base_link">
     <inertial>
@@ -81,7 +80,7 @@
     </collision>
   </link>
   <joint
-    name="rot1"
+    name="wheel_right_joint"
     type="continuous">
     <origin
       xyz="0 -0.150112698372207 -0.06"
@@ -134,7 +133,7 @@
     </collision>
   </link>
   <joint
-    name="rot2"
+    name="wheel_left_joint"
     type="continuous">
     <origin
       xyz="0 0.149887301627792 -0.0599999999999983"
@@ -305,4 +304,26 @@
     <axis
       xyz="0 0 0" />
   </joint>
+
+  <transmission name="tran1">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="wheel_left_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor1">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="tran2">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="wheel_right_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor2">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
 </robot>

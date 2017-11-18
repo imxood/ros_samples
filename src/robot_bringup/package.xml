@@ -1,5 +1,4 @@
-﻿<?xml version="1.0"?>
-<package format="2">
+﻿<package>
   <name>robot_bringup</name>
   <version>0.1.0</version>
   <description>The robot_bringup package</description>
@@ -9,6 +8,18 @@
   <license>Apache 2.0</license>
 
   <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>controller_manager</build_depend>
+  <build_depend>nav_msgs</build_depend>
+  <build_depend>realtime_tools</build_depend>
+  <build_depend>tf</build_depend>
+  <build_depend>urdf</build_depend>
+
+  <run_depend>controller_manager</run_depend>
+  <run_depend>nav_msgs</run_depend>
+  <run_depend>realtime_tools</run_depend>
+  <run_depend>tf</run_depend>
+  <run_depend>urdf</run_depend>
 
   <export></export>
 

@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<!-- created with Phobos 0.7 -->
+  <robot name="car">
+
+    <link name="base_link">
+      <visual name="base_link.001">
+        <origin xyz="0 0 -0.01398" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.4 0.5 0.16"/>
+        </geometry>
+        <material name="材质.002"/>
+      </visual>
+    </link>
+
+    <link name="left_wheel">
+      <visual name="left_wheel.001">
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <cylinder radius="0.0844" length="0.02"/>
+        </geometry>
+        <material name="材质"/>
+      </visual>
+      <collision name="left_wheel.002">
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <cylinder radius="0.0844" length="0.02"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <link name="ommi_wheel">
+      <visual name="ommi_wheel.001">
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <cylinder radius="0.0844" length="0.02"/>
+        </geometry>
+        <material name="材质"/>
+      </visual>
+      <collision name="ommi_wheel.002">
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <cylinder radius="0.0844" length="0.02"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <link name="right_wheel">
+      <visual name="right_wheel.001">
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <cylinder radius="0.0844" length="0.02"/>
+        </geometry>
+        <material name="材质.001"/>
+      </visual>
+      <collision name="right_wheel.002">
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <cylinder radius="0.0844" length="0.02"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="left_wheel" type="continuous">
+      <axis xyz="0 0 -1"/>
+      <origin xyz="-0.215 -0.0875 -0.097" rpy="0 -1.5708 0"/>
+      <parent link="base_link"/>
+      <child link="left_wheel"/>
+    </joint>
+
+    <joint name="ommi_wheel" type="continuous">
+      <axis xyz="0 0 -1"/>
+      <origin xyz="0 0.16741 -0.097" rpy="0 -1.5708 0"/>
+      <parent link="base_link"/>
+      <child link="ommi_wheel"/>
+    </joint>
+
+    <joint name="right_wheel" type="continuous">
+      <axis xyz="0 0 -1"/>
+      <origin xyz="0.215 -0.0875 -0.097" rpy="0 -1.5708 0"/>
+      <parent link="base_link"/>
+      <child link="right_wheel"/>
+    </joint>
+
+    <material name="材质">
+      <color rgba="0.00778 0.47776 0.63928 1.0"/>
+    </material>
+
+    <material name="材质.001">
+      <color rgba="0.00778 0.47776 0.63928 1.0"/>
+    </material>
+
+    <material name="材质.002">
+      <color rgba="0.8 0.8 0.8 1.0"/>
+    </material>
+
+  </robot>

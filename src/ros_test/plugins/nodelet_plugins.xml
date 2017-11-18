@@ -1,0 +1,7 @@
+﻿<library path="lib/libtest_nodelet">
+  <class name="robot/TestNodelet" type="robot::TestNodelet" base_class_type="nodelet::Nodelet">
+    <description>
+      Test Nodelet
+    </description>
+  </class>
+</library>

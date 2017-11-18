@@ -1,0 +1,10 @@
+﻿<launch>
+
+    <!-- nodelet manager -->
+    <!-- <node name="nodelet_manager" pkg="nodelet" type="nodelet" args="manager" output="screen"></node> -->
+
+    <!-- <node name="test_nodelet" pkg="nodelet" type="nodelet" args="load robot/TestNodelet nodelet_manager" output="screen" /> -->
+
+    <node name="test_node2" pkg="ros_test" type="test_node" output="screen" />
+
+</launch>

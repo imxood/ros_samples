@@ -1,4 +1,0 @@
-#ifndef CHASISS_JOINT_H
-#define CHASISS_JOINT_H
-
-#endif // CHASISS_JOINT_H

@@ -1,0 +1,62 @@
+{
+    // 使用 IntelliSense 了解相关属性。 
+    // 悬停以查看现有属性的描述。
+    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "lldb",
+            "request": "attach",
+            "name": "Attach",
+            "pid": "${command:pickMyProcess}" // use ${command:pickProcess} to pick other users' processes
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "launch_test_nodelet",
+            "program": "/opt/ros/kinetic/lib/nodelet/nodelet",
+            "args": ["standalone", "robot/TestNodelet"],
+            "cwd": "${workspaceRoot}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "lldb test",
+            "program": "${workspaceRoot}/src/c_test/a.out",
+            "args": [],
+            "cwd": "${workspaceRoot}"
+        },
+        {
+            "name": "custom_launch_test_nodelet",
+            "type": "lldb",
+            "request": "launch",
+            "custom":true,
+            "initCommands": [
+                "target create ${workspaceFolder}/devel/lib/libtest_nodelet.so"
+            ],
+            "preRunCommands":[
+                "run /opt/ros/kinetic/lib/nodelet/nodelet standalone robot/TestNodelet"
+            ]
+        },
+        {
+            "name": "attach_robot_driver",
+            "type": "cppdbg",
+            "request": "attach",
+            "program": "${workspaceFolder}/devel/lib/robot_driver/servo_driver",
+            "processId": "${command:pickRemoteProcess}",
+            "pipeTransport": {
+                "debuggerPath": "/usr/bin/gdb",
+                "pipeProgram": "/usr/bin/ssh",
+                "pipeArgs": [],
+                "pipeCwd": ""
+            },
+            "MIMode": "gdb"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Program",
+            "program": "${file}"
+        }
+    ]
+}
